@@ -9,12 +9,10 @@ export class FilmCardService {
 
   private extractData(res: Response) {
     let body = res.json();
-    return body.Search || {};
+    return body.Search || [];
   }
 
   getFilms (filmName: string) {
-    return this.http.get(this.url + filmName).map(this.extractData);
+    return this.http.get(`${this.url}${filmName}`).map(this.extractData);
   }
-
-
 }

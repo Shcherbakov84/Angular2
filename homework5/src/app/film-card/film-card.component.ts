@@ -12,16 +12,15 @@ export class FilmCardComponent implements OnInit {
   constructor(private filmCardService: FilmCardService) { }
 
   ngOnInit() {
-
-    this.filmName = "Matrix"
+    this.filmName = 'Matrix';
     this.getFilms();
   }
 
-  private getFilms(){
-    if(!this.filmName) {return;}
-    this.filmCardService.getFilms(this.filmName).subscribe(data => {
+  private getFilms() {
+    if(this.filmName) {
+      this.filmCardService.getFilms(this.filmName).subscribe(data => {
       this.filmList = data;
-    })
+      })
+    }
   }
-
 }
