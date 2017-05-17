@@ -3,19 +3,15 @@
 
     function Gallery (items) {        
         this.DOMElements = {
-            refreshBtn  : document.querySelector("#refresh-btn"),
-            filmContent : document.querySelector("#film-content")
+            filmContent : document.querySelector(".view-content")
         };
-
         this.arrayOfFilms = [];
         this.items = items.Search;
         this.counter = 0;
         this.searchValue = 'Lock';
-        
         this.eventHolder = $({});
         this.updateEventName = "update";
         this.buildDefaultGallery();
-
     }
     
     Gallery.prototype = {
@@ -33,17 +29,12 @@
         },
 
         printFilms : function(films) {
-            var template = ``;
-            films.forEach(function(film) {
-                template += film;
-            });
+            var template = '<div>' + films.join('</div><div>') + '</div>';
             this.DOMElements.filmContent.innerHTML = template;
         },
         
         buildDefaultGallery : function() {
-            console.log("Gallery is ready");
-            this.arrayOfFilms = this.createArrayOfFilms(this.items);
-            this.printFilms(this.arrayOfFilms);
+            this.printFilms( this.createArrayOfFilms(this.items) );
         },
 
         buildGalleryBySearch : function(data) {
@@ -54,9 +45,5 @@
     }
     
     window.app = window.app || {};
-    window.app.Gallery = Gallery;
-    
+    window.app.Gallery = Gallery;   
 }());
-
-
-

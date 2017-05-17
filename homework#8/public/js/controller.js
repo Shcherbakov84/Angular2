@@ -8,8 +8,7 @@
     
     function bindUpdate() {
         searchView.eventHolder.on( searchView.updateEventName, (event, item) => {
-            model.updateData(item.searchValue).then((data) => {
-                console.log(data);
+            model.getData(item.searchValue).then((data) => {
                 gallery.buildGalleryBySearch(data);
             });    
         });
@@ -28,5 +27,4 @@
     }
 
     init();
-    
 }())

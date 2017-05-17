@@ -2,11 +2,15 @@
 (function(){
     
     var model = function() {
+        const Url = setUrl('http://www.omdbapi.com');
+
+        function setUrl(url) {
+            return '' + url;
+        }
        
-        function getData(defaultData) {
-            return $.get( 'http://www.omdbapi.com/?page=1&s=Godfather', function( data ) {
-                console.log("Initial data is loaded");
-                return data;
+        function getData(filmName = 'Godfather', pageNumber = 1) {
+            return $.get( `${Url}/?page=${pageNumber}&s=${filmName}`, function( data ) { 
+                return data || {};
             })            
         }
         
@@ -14,25 +18,13 @@
             console.log("Data successfuly saved: ");
             console.log(item);
         }
-        
-        function updateData(searchData) {
-            console.log(searchData);
-            return $.get( `http://www.omdbapi.com/?page=1&s=${searchData}`, function( searchData ) {
-                console.log("Searching data is loaded"); 
-                return searchData;
-            })  
-        }
-        
+       
         return {
             getData : getData,
-            saveData: saveData,
-            updateData: updateData
+            saveData: saveData
         }
     }
     
     window.app = window.app || {};
-    window.app.model = model();
-
-
-    
+    window.app.model = model();  
 }())
