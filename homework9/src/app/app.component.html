@@ -3,7 +3,8 @@
   <div class="toolbar-button-row">
     <a md-button
       *ngFor="let topLink of links" href="#">
-      <md-icon>{{topLink.icon}}</md-icon> &nbsp; {{topLink.label}}
+      <md-icon>{{topLink.icon}}</md-icon>
+      <span>{{topLink.label}}</span>
     </a>
   </div>
   <span>{{title}}</span>
@@ -16,7 +17,8 @@
         class="nav-link"
         *ngFor="let link of links"
         href="#">
-        <md-icon>{{link.icon}}</md-icon> &nbsp; {{link.label}}
+        <md-icon>{{link.icon}}</md-icon> 
+        <span>{{link.label}}</span>
       </a>
     </nav>
   </md-sidenav>

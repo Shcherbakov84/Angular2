@@ -16,8 +16,13 @@ export class FilmService {
 
   private extractItemData(res: Response) {
     let body = res.json();
-    return body || {};
+    return  body || {};
   }
+  
+  // private extract(res: Response) {
+  //   let body = res.json(); 
+  //   return ( body instanceof Array ) ? ( body.Search || [] ) : ( body || {} ); 
+  // }
 
   getFilms (filmName: string) {
     return this.http.get(`${this.url}/?page=1&s=${filmName}&apikey=${this.apiKey}`).map(this.extractListData);

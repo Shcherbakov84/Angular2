@@ -8,7 +8,7 @@ import {MaterialModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { FilmCardComponent } from './film-card/film-card.component';
-import { FilmService } from './services/film.service';
+import { FilmService } from './shared/film.service';
 import { FilmListComponent } from './film-list/film-list.component';
 
 @NgModule({

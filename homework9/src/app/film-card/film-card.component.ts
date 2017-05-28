@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FilmService} from '../services/film.service'
+import {FilmService} from '../shared/film.service';
 
 @Component({
   selector: 'film-card',
@@ -7,15 +7,15 @@ import {FilmService} from '../services/film.service'
   styleUrls: ['./film-card.component.css']
 })
 export class FilmCardComponent implements OnInit {
-  @Input()
-  filmId: string; 
-  filmItem: {} = {};
+  @Input() filmId: string;
+  private filmItem: Object = {};
+
   constructor(private filmCardService: FilmService) { }
   
   private getFilmInfo() {
     if(this.filmId) {
-      this.filmCardService.getFilmById(this.filmId).subscribe(data => {
-        this.filmItem = data;
+      this.filmCardService.getFilmById(this.filmId).subscribe(filmInfo => {
+        this.filmItem = filmInfo;
       })
     }
   }
