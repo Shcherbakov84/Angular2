@@ -6,9 +6,9 @@ import {FilmService} from '../shared/film.service';
   templateUrl: './film-list.component.html',
   styleUrls: ['./film-list.component.css']
 })
-export class FilmListComponent implements OnInit {
 
-  filmList : Object[] = [];
+export class FilmListComponent implements OnInit {
+  filmList : Object[] = [{}];
   filmName : string; 
   constructor(private filmCardService: FilmService) { }
 

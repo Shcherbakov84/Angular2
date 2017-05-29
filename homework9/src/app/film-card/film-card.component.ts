@@ -6,6 +6,7 @@ import {FilmService} from '../shared/film.service';
   templateUrl: './film-card.component.html',
   styleUrls: ['./film-card.component.css']
 })
+
 export class FilmCardComponent implements OnInit {
   @Input() filmId: string;
   private filmItem: Object = {};
@@ -15,7 +16,7 @@ export class FilmCardComponent implements OnInit {
   private getFilmInfo() {
     if(this.filmId) {
       this.filmCardService.getFilmById(this.filmId).subscribe(filmInfo => {
-        this.filmItem = filmInfo;
+        this.filmItem = filmInfo || {};
       })
     }
   }

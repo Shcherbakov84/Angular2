@@ -13,5 +13,4 @@ export class AppComponent {
     { path: '/filmList', icon: 'movie', label: 'Все фильмы'},
     { path: '/profile', icon: 'account_circle', label: 'Профиль'}
   ];
-
 }

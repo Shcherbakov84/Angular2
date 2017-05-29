@@ -8,27 +8,17 @@ export class FilmService {
   apiKey: string = '520bbe17';
   
   constructor(private http: Http) { }
-
-  private extractListData(res: Response) {
-    let body = res.json();
-    return body.Search || [];
-  }
-
-  private extractItemData(res: Response) {
-    let body = res.json();
-    return  body || {};
-  }
   
-  // private extract(res: Response) {
-  //   let body = res.json(); 
-  //   return ( body instanceof Array ) ? ( body.Search || [] ) : ( body || {} ); 
-  // }
+  private extract(res: Response) {
+    let body = res.json(); 
+    return ( Array.isArray(body.Search) ) ? ( body.Search || [] ) : ( body || {} ); 
+  }
 
-  getFilms (filmName: string) {
-    return this.http.get(`${this.url}/?page=1&s=${filmName}&apikey=${this.apiKey}`).map(this.extractListData);
+  getFilms (filmName: string, filmPage:number = 1) {
+    return this.http.get(`${this.url}/?page=${filmPage}&s=${filmName}&apikey=${this.apiKey}`).map(this.extract);
   }
 
   getFilmById (filmId: string) {
-    return this.http.get(`${this.url}/?i=${filmId}&apikey=${this.apiKey}`).map(this.extractItemData);
+    return this.http.get(`${this.url}/?i=${filmId}&apikey=${this.apiKey}`).map(this.extract);
   }
 }
