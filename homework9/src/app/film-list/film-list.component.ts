@@ -8,7 +8,7 @@ import {FilmService} from '../shared/film.service';
 })
 
 export class FilmListComponent implements OnInit {
-  filmList : Object[] = [{}];
+  filmList : Object[] = [];
   filmName : string; 
   constructor(private filmCardService: FilmService) { }
 
@@ -17,10 +17,16 @@ export class FilmListComponent implements OnInit {
     this.getFilms();
   }
 
+  private isFilmListEmpty(): boolean {
+    return this.filmList && !this.filmList.length;
+  }
+
   private getFilms() {
       this.filmCardService.getFilms(this.filmName).subscribe(filmsArray => {
         this.filmList = (filmsArray && filmsArray.length) ? filmsArray : [];
       })
   }
 }
+
+
  

@@ -11,7 +11,8 @@ export class FilmService {
   
   private extract(res: Response) {
     let body = res.json(); 
-    return ( Array.isArray(body.Search) ) ? ( body.Search || [] ) : ( body || {} ); 
+    body = body.Search || body;
+    return body || {};
   }
 
   getFilms (filmName: string, filmPage:number = 1) {
