@@ -13,24 +13,22 @@
   margin: 10px 0;
 }
 
-.film-tile_img {
+.film-tile__img {
   background-color: #fff;
+}
+
+.film-tile__img img {
   width: 200px;
+  max-height: 100%;
 }
 
-.film-tile_img img {
-  min-width: 200px;
-  max-width: 250px;
-  width: 100%;
-}
-
-.film-tile__info {
+.film-tile__wrap {
   background-color: #fff;
   padding-left: 10px;
 }
 
-.info-wrap {
-  max-height: 250px;
+.film-tile__info {
+  max-height: 235px;
   overflow: hidden;
 }
 
@@ -39,12 +37,13 @@
   font-size: 20px;
 }
 
-.film-tile__plot {
+.film-tile__info span {
+  font-weight: bold;
   padding-right: 5px;
 }
 
-.film-tile__info span {
-  font-weight: bold;
+.film-tile__plot {
+  padding-right: 5px;
 }
 
 md-icon {
@@ -57,6 +56,6 @@ md-icon {
 
 button {
   position: absolute;
-  bottom: 20px;
+  bottom: 15px;
   border: 1px solid #777; 
 }

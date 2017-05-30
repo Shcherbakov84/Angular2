@@ -1,18 +1,18 @@
 <div class="film-tile">
-	<div class="film-tile_img">
+	<div class="film-tile__img">
 		<img alt={{filmItem.Title}} src="{{filmItem.Poster}}">
 	</div>
-	<div class="film-tile__info">
-		<div class="info-wrap">
+	<div class="film-tile__wrap">
+		<div class="film-tile__info">
 			<p class="film-tile__title">{{filmItem.Title}}</p>
 			<p>
 				<span>Рейтинг IMDb:</span>{{filmItem.imdbRating}}
 				<md-icon *ngIf="filmItem.imdbRating >= 8">thumb_up</md-icon>
 			</p>
-			<p><span>Релиз:</span> {{filmItem.Released}}</p>
-			<p><span>Жанр:</span> {{filmItem.Genre}}</p>
+			<p><span>Релиз:</span>{{filmItem.Released}}</p>
+			<p><span>Жанр:</span>{{filmItem.Genre}}</p>
 			<p class="film-tile__plot">{{filmItem.Plot}}</p>
-		</div>
+		</div>	
 		<button md-button>Подробнее</button>
 	</div>
 </div>

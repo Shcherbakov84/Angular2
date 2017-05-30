@@ -12,8 +12,9 @@ export class FilmListComponent implements OnInit {
     {value: 'view1', viewValue: 'Film Card'},
     {value: 'view2', viewValue: 'Film Tile'}
   ];
-  filmList : Object[] = [{}];
   selectedView: string = this.cardViews[0].value;
+  filmList: Object[] = [];
+  filmName: string = ''; 
 
   constructor(private filmCardService: FilmService) { }
 
@@ -21,12 +22,29 @@ export class FilmListComponent implements OnInit {
     this.getFilms();
   }
 
-  private getFilms(searchResult = "Godfather") {
-    this.filmCardService.getFilms(searchResult).subscribe(filmsArray => {
-      this.filmList = (filmsArray && filmsArray.length) ? filmsArray : [];
+  isFilmListEmpty(): boolean {
+    return this.filmList && !this.filmList.length;
+  }
+
+  isArray(filmsArray): boolean {
+    return filmsArray && filmsArray.length;
+  }
+
+  getFilms(filmName: string = "Terminator") {
+    this.filmCardService.getFilms(filmName).subscribe(filmsArray => {
+      this.filmList = ( this.isArray(filmsArray) ) ? filmsArray : [];
     })
   }
 
+  buildGalleryBySearch(filmName: string) {
+    this.filmName = filmName;
+    this.getFilms(filmName);
+  }
 
+  addFilms() {
+    this.filmCardService.getNextFilms(this.filmName).subscribe(filmsArray => {
+      this.filmList = [...this.filmList, ...filmsArray];
+    })
+  }
 }
  
