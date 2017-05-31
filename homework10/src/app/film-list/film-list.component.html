@@ -9,6 +9,7 @@
 	
 	<div [ngSwitch]="selectedView">
 		<md-card *ngIf="isFilmListEmpty()">Извините, фильмы не найдены..</md-card>
+		
 		<md-grid-list *ngSwitchCase="'view1'" cols="3" rowHeight="850px">
 			<md-grid-tile  *ngFor="let film of filmList">
 				<film-card [filmId]="film.imdbID"></film-card>

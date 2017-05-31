@@ -14,12 +14,12 @@ export class FilmListComponent implements OnInit {
   ];
   selectedView: string = this.cardViews[0].value;
   filmList: Object[] = [];
-  filmName: string = ''; 
+  filmName: string = 'Terminator'; 
 
   constructor(private filmCardService: FilmService) { }
 
   ngOnInit() {
-    this.getFilms();
+    this.getFilms(this.filmName);
   }
 
   isFilmListEmpty(): boolean {
@@ -30,7 +30,7 @@ export class FilmListComponent implements OnInit {
     return filmsArray && filmsArray.length;
   }
 
-  getFilms(filmName: string = "Terminator") {
+  getFilms(filmName) {
     this.filmCardService.getFilms(filmName).subscribe(filmsArray => {
       this.filmList = ( this.isArray(filmsArray) ) ? filmsArray : [];
     })
