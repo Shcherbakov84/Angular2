@@ -9,19 +9,19 @@ import {FilmService} from '../shared/film.service';
 
 export class FilmCardComponent implements OnInit {
   @Input() filmId: string;
-  private filmItem: Object = {};
+  private filmItem: Object;
 
   constructor(private filmCardService: FilmService) { }
-  
-  private getFilmInfo() {
-    if(this.filmId) {
-      this.filmCardService.getFilmById(this.filmId).subscribe(filmInfo => {
-        this.filmItem = filmInfo || {};
-      })
-    }
-  }
 
   ngOnInit() {
     this.getFilmInfo();
+  }
+  
+  private getFilmInfo() {
+    if(this.filmId) {
+      this.filmCardService.getFilmById(this.filmId).subscribe( (filmInfo: Object) => {
+        this.filmItem = filmInfo || {};
+      })
+    }
   }
 }

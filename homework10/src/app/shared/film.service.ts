@@ -1,14 +1,17 @@
-import { Injectable } from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable, OnInit } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
-export class FilmService {
+export class FilmService implements OnInit {
   url: string = 'http://www.omdbapi.com';
   apiKey: string = '520bbe17';
   page: number = 1;
   
   constructor(private http: Http) { }
+
+  ngOnInit() {
+  }
   
   private extract(res: Response) {
     let body = res.json(); 
@@ -16,17 +19,21 @@ export class FilmService {
     return body || {};
   }
 
-  getFilms (filmName: string) {
-    return this.http.get(`${this.url}/?page=1&s=${filmName}&apikey=${this.apiKey}`).map(this.extract);
+  get(url: string): Observable<any> {
+    return this.http.get(url).map(this.extract);
   }
 
-  getNextFilms (filmName: string) {
+  getFilms(filmName: string) {
+    return this.get(`${this.url}/?page=1&s=${filmName}&apikey=${this.apiKey}`);
+  }
+
+  getNextFilms(filmName: string) {
     this.page++;
-    return this.http.get(`${this.url}/?page=${this.page}&s=${filmName}&apikey=${this.apiKey}`).map(this.extract);
+    return this.get(`${this.url}/?page=${this.page}&s=${filmName}&apikey=${this.apiKey}`);
   }
 
-  getFilmById (filmId: string) {
-    return this.http.get(`${this.url}/?i=${filmId}&apikey=${this.apiKey}`).map(this.extract);
+  getFilmById(filmId: string) {
+    return this.get(`${this.url}/?i=${filmId}&apikey=${this.apiKey}`);
   }
 }
  
