@@ -8,12 +8,18 @@ import {MaterialModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { FilmCardComponent } from './film-card/film-card.component';
-import { FilmCardService } from './film-card/film-card.service';
+import { FilmService } from './shared/film.service';
+import { FilmListComponent } from './film-list/film-list.component';
+import { FilmSearchComponent } from './film-search/film-search.component';
+import { FilmTileComponent } from './film-tile/film-tile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FilmCardComponent
+    FilmCardComponent,
+    FilmListComponent,
+    FilmSearchComponent,
+    FilmTileComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -22,7 +28,7 @@ import { FilmCardService } from './film-card/film-card.service';
     FormsModule,
     HttpModule
   ],
-  providers: [FilmCardService],
+  providers: [FilmService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
