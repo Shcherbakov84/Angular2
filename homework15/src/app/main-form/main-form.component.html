@@ -1,0 +1,126 @@
+<form class="example-form" #payForm="ngForm">
+<!--Номер телефона-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="соответствует шаблону 380 '** *******'"
+        type="text" 
+        name="userPhoneNmb" 
+        required  
+        pattern="380([0-9]{9})"  
+        [(ngModel)]="userPhoneNmb" 
+        #phoneNmb="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="phoneNmb.valid || phoneNmb.untouched">
+      Введите корректный номер телефона  
+  </div>
+
+<!--Сумма-->
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Сумма пополнения: число от 5 до 5000, буквы запрещены"
+      type="number" 
+      min="5"
+      max="5000"
+      value="1"
+      step="1"
+      pattern="[0-9]{1,4}"
+      name="userSum" 
+      required  
+      [(ngModel)]="userSum" 
+      #sum="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="sum.valid || sum.untouched">
+      Введите корректную сумму  
+  </div>
+
+<!--Email-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="Email должен содержать @ и точку."
+        type="email" 
+        name="userEmail" 
+        required  
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
+        [(ngModel)]="userEmail" 
+        #email="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="email.valid || email.untouched">
+      Email не заполнен или введен неправильно  
+  </div>
+
+<!--CardId-->
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Номер карты: 16 цифр, буквы запрещены"
+      type="text" 
+      name="userCardId" 
+      required  
+      pattern="[0-9]{16}" 
+      [(ngModel)]="userCardId" 
+      #cardId="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="cardId.valid || cardId.untouched">
+      Номер карточки не заполнен или введен неправильно  
+  </div>
+
+<!--Срок действия-->
+	<md-select 
+    placeholder="Select month" 
+		[(ngModel)]="selectedMonth" 
+    required
+		name="month">
+		<md-option *ngFor="let month of months" 
+			[value]="month.value">
+			{{ month.viewValue }}
+		</md-option>
+	</md-select>
+
+  <md-select placeholder="Select year" 
+		[(ngModel)]="selectedYear" 
+    required
+		name="year">
+		<md-option *ngFor="let year of years" 
+			[value]="year.value">
+			{{ year.viewValue }}
+		</md-option>
+	</md-select>
+
+<!--CVV2-->
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="CVV2: 3 цифры, буквы запрещены"
+      type="text" 
+      name="userCVV2" 
+      required  
+      pattern="[0-9]{3}" 
+      [(ngModel)]="userCVV2" 
+      #cvv2="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="cvv2.valid || cvv2.untouched">
+      CVV2 не заполнен или введен неправильно  
+  </div>
+
+<!--SuccessMsg-->
+  <div 
+    class="success"
+    [hidden]="!isAccountReplenished">
+      Ваш счет успешно пополнен  
+  </div>
+
+<!--ReplenishBtn-->
+  <button md-button
+    [disabled]="!payForm.form.valid"
+    (click)="replenishAccount()">
+      Пополнить
+  </button>
+</form>
