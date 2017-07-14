@@ -2,8 +2,8 @@
   <div class="filmDetails__filmName">{{filmDetails.title}}</div>
   <div class="details-wrap">
     <img
-      alt="{{filmDetails.title}}" 
-      src="{{pictureUrl + posterSize + filmDetails.poster_path}}">
+      [alt]="filmDetails.title" 
+      [src]="'https://image.tmdb.org/t/p/' + posterSize + filmDetails.poster_path">
     <div class="filmDetails__wrap">
       <div class="heading">Оригинальное название</div>
       <span class="content">{{filmDetails.original_title}}</span>
@@ -28,8 +28,8 @@
       <md-card class="actors-card">
         <img 
           md-card-image 
-          src="{{pictureUrl + actorImgSize + actor.profile_path}}"
-          alt="{{actor.name}}">
+          [src]="'https://image.tmdb.org/t/p/' + actorImgSize + actor.profile_path"
+          [alt]="actor.name">
         <md-card-content>
           <div class="actorsList__actor-name">{{actor.name}}</div>
           <div>{{actor.character}}</div>

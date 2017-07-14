@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FilmService} from '../shared/film.service';
+import {FilmService} from '../../shared/film.service';
 
 @Component({
   selector: 'film-list',
@@ -13,7 +13,7 @@ export class FilmListComponent implements OnInit {
     {value: 'view2', viewValue: 'Film Tile'}
   ];
   selectedView: string;
-  filmList: Object[];
+  filmList: object[];
   filmName: string; 
 
   constructor(private filmCardService: FilmService) { }
@@ -38,19 +38,14 @@ export class FilmListComponent implements OnInit {
     })
   }
 
-  // buildGalleryBySearch(filmName: string) {
-  //   this.filmName = filmName;
-  //   this.getFilmsBySearch(filmName);
-  // }
-
   addPopularFilms() {
-    this.filmCardService.getPopularNextPage().subscribe( (filmsArray: Object[] ) => {
-      this.filmList = [...this.filmList, ...filmsArray];
+    this.filmCardService.getPopularNextPage().subscribe( (filmsList: object[] ) => {
+      this.filmList.push(...filmsList);
     })
   }
 
   getPopular() {
-    this.filmCardService.getPopular().subscribe( (filmsArray: Object[] ) => {
+    this.filmCardService.getPopular().subscribe( (filmsArray: object[] ) => {
       this.filmList = ( this.isFilledArray(filmsArray) ) ? filmsArray : [];
     })
   }

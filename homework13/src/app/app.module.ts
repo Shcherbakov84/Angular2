@@ -6,13 +6,13 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 
-import { routes } from "./app.routes";
+import { ROUTES } from "./app.routes";
 import { AppComponent } from './app.component';
-import { FilmCardComponent } from './film-card/film-card.component';
-import { FilmListComponent } from './film-list/film-list.component';
-import { FilmSearchComponent } from './film-search/film-search.component';
-import { FilmTileComponent } from './film-tile/film-tile.component';
-import { DetailedFilminfoComponent } from './detailed-filminfo/detailed-filminfo.component';
+import { FilmCardComponent } from './films/film-card/film-card.component';
+import { FilmListComponent } from './films/film-list/film-list.component';
+import { FilmSearchComponent } from './films/film-search/film-search.component';
+import { FilmTileComponent } from './films/film-tile/film-tile.component';
+import { DetailedFilminfoComponent } from './films/detailed-filminfo/detailed-filminfo.component';
 
 import { FilmService } from './shared/film.service';
 import { SendingInfoService } from './shared/sendingInfo.service';
@@ -32,7 +32,7 @@ import { SendingInfoService } from './shared/sendingInfo.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(ROUTES)
   ],
   providers: [FilmService, SendingInfoService],
   bootstrap: [AppComponent]

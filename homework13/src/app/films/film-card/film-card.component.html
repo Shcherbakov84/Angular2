@@ -2,8 +2,8 @@
 	*ngIf="filmItem">
 	<img 
 		md-card-image 
-		alt="{{filmItem.title}}" 
-		src="{{pictureUrl + filmItem.poster_path}}">
+		[alt]="filmItem.title" 
+		[src]="'https://image.tmdb.org/t/p/' + pictureSize + filmItem.poster_path">
 	<md-card-content>
 		<md-card-title>
 			{{filmItem.title}}
@@ -27,6 +27,10 @@
 		<div class="film-card__description">{{filmItem.overview}}</div>
 	</md-card-content>
 	<md-card-actions>
-		<a md-button routerLink="/filmList/{{filmItem.id}}">Подробнее</a>
+		<a 
+			md-button 
+			[routerLink]="'/filmList/' + filmItem.id">
+			Подробнее
+		</a>
 	</md-card-actions>
 </md-card>

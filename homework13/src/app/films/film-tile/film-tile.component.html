@@ -1,7 +1,8 @@
 <div class="film-tile" *ngIf="filmItem">
 	<div class="film-tile__img">
-		<img alt={{filmItem.title}} 
-			src="{{pictureUrl + filmItem.poster_path}}">
+		<img 
+			[alt]="filmItem.title" 
+			[src]="'https://image.tmdb.org/t/p/' + pictureSize + filmItem.poster_path">
 	</div>
 	<div class="film-tile__wrap">
 		<div class="film-tile__info">
@@ -30,6 +31,10 @@
 				{{filmItem.overview}}
 			</div>
 		</div>	
-		<a md-button routerLink="/filmList/{{filmItem.id}}">Подробнее</a>
+		<a 
+			md-button 
+			[routerLink]="'/filmList/' + filmItem.id">
+			Подробнее
+		</a>
 	</div>
 </div>

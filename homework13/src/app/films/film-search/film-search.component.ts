@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
  
 @Component({
   selector: 'film-search',
@@ -6,19 +6,13 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./film-search.component.css']
 })
 
-export class FilmSearchComponent implements OnInit {
+export class FilmSearchComponent {
   filmName: string = '';
-
-  constructor() { }
 
   @Output()
   searchEvent: EventEmitter<string> = new EventEmitter();
 
-  ngOnInit() {
-  }
-
   getFilms() {
     this.searchEvent.emit(this.filmName); 
   }
-
 }

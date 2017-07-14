@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {FilmService} from '../shared/film.service';
+import {FilmService} from '../../shared/film.service';
 
 
 @Component({
@@ -10,8 +10,8 @@ import {FilmService} from '../shared/film.service';
 
 export class FilmCardComponent implements OnInit {
   @Input() filmId: number;
-  private filmItem: Object;
-  pictureUrl: string = 'https://image.tmdb.org/t/p/w342';
+  filmItem: object;
+  pictureSize: string = 'w342';
 
   constructor(private filmCardService: FilmService) { }
 
@@ -21,9 +21,9 @@ export class FilmCardComponent implements OnInit {
   
   private getFilmInfo() {
     if(this.filmId) {
-      this.filmCardService.getFilmById(this.filmId).subscribe( (filmInfo: Object) => {
+      this.filmCardService.getFilmById(this.filmId).subscribe( (filmInfo: object) => {
         this.filmItem = filmInfo || {};
       })
-    };
+    }
   }
 }

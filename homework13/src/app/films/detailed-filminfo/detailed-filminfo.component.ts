@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 import { ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import {FilmService} from '../shared/film.service';
+import {FilmService} from '../../shared/film.service';
 
 @Component({
-  selector: 'app-detailed-filminfo',
+  selector: 'detailed-filminfo',
   templateUrl: './detailed-filminfo.component.html',
   styleUrls: ['./detailed-filminfo.component.css']
 })
@@ -15,9 +15,7 @@ export class DetailedFilminfoComponent implements OnInit {
    filmId;
    subscription: Subscription;
    filmDetails;
-   pictureUrl: string = 'https://image.tmdb.org/t/p/';
    posterSize: string = 'w500';
-  //  logoSize: string = 'w45';
    actorImgSize: string = 'w185';
 
   constructor (private activateRoute: ActivatedRoute, private filmCardService: FilmService) {
@@ -38,13 +36,12 @@ export class DetailedFilminfoComponent implements OnInit {
   }
 
   getActorsShortList() {
-    return this.actorsFullList.slice(0, 5) || this.actorsFullList;
+    return (this.actorsFullList.length >= 5) ? this.actorsFullList.slice(0, 5) : this.actorsFullList;
   }
 
   getActors () {
-    if(this.filmId) {
-      this.filmCardService
-        .getActors(this.filmId).subscribe( (actorsList ) => {
+    if(this.filmId) {   
+      this.filmCardService.getActors(this.filmId).subscribe( (actorsList ) => {
         this.actorsFullList = actorsList.cast || [];
         this.actorsShortList = this.getActorsShortList();
       })
