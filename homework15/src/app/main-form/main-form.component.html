@@ -1,0 +1,107 @@
+<form class="example-form" 
+  [formGroup]="userForm">
+
+<!--Номер телефона-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="соответствует шаблону 380 '** *******'"
+        type="text" 
+        name="userPhoneNmb" 
+        formControlName = "userPhoneNmb">
+  </md-input-container>
+  <div *ngIf="formErrors.userPhoneNmb" class="error">
+    {{formErrors.userPhoneNmb}}
+  </div>
+
+<!--Сумма-->
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Сумма пополнения: число от 5 до 5000, буквы запрещены"
+      type="number" 
+      formControlName = "userSum"
+      name="userSum">
+  </md-input-container>
+  <div *ngIf="formErrors.userSum" class="error">
+    {{formErrors.userSum}}
+  </div>
+
+<!--Email-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="Email должен содержать @ и точку."
+        type="email" 
+        name="userEmail" 
+        formControlName = "userEmail">
+  </md-input-container>
+  <div *ngIf="formErrors.userEmail" class="error">
+    {{formErrors.userEmail}}
+  </div>
+
+<!--CardId-->
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Номер карты: 16 цифр, буквы запрещены"
+      type="text" 
+      name="userCardId" 
+      formControlName = "userCardId">
+  </md-input-container>
+  <div *ngIf="formErrors.userCardId" class="error">
+    {{formErrors.userCardId}}
+  </div>
+
+<!--Срок действия-->
+	<md-select 
+    placeholder="Select month" 
+		[(ngModel)]="selectedMonth" 
+    name="userMonth"
+    formControlName = "userMonth">
+      <md-option *ngFor="let month of dateService.months" 
+        [value]="month.value">
+        {{ month.viewValue }}
+      </md-option>
+  </md-select>
+  <div *ngIf="formErrors.userMonth" class="error">
+    {{formErrors.userMonth}}
+  </div>
+
+  <md-select placeholder="Select year" 
+		[(ngModel)]="selectedYear" 
+    name="year"
+    formControlName = "userYear">
+      <md-option *ngFor="let year of dateService.years" 
+        [value]="year.value">
+        {{ year.viewValue }}
+      </md-option>
+  </md-select>
+  <div *ngIf="formErrors.userYear" class="error">
+    {{formErrors.userYear}}
+  </div>
+
+<!--CVV2-->
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="CVV2: 3 цифры, буквы запрещены"
+      type="text" 
+      name="userCVV2" 
+      formControlName = "userCVV2"
+      pattern="[0-9]{3}">
+  </md-input-container>
+  <div *ngIf="formErrors.userCVV2" class="error">
+    {{formErrors.userCVV2}}
+  </div>
+
+<!--SuccessMsg-->
+  <div 
+    class="success"
+    [hidden]="!isAccountReplenished">
+      Ваш счет успешно пополнен  
+  </div>
+
+<!--ReplenishBtn-->
+  <button md-button
+    [disabled]="isBtnDisabled()"
+    (click)="replenishAccount()">
+      Пополнить
+  </button>
+</form>
+

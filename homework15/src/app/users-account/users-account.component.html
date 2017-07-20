@@ -1,0 +1,39 @@
+<form class="example-form" #accountForm="ngForm">
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="Email должен содержать @ и точку."
+        type="email" 
+        name="userEmail" 
+        required  
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
+        [(ngModel)]="userEmail" 
+        #email="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="email.valid || email.untouched">
+      Email не заполнен или введен неправильно.  
+  </div>
+
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Не менее 10 символов, не менее1 числа, не менее 1 буквы в верхнем регистре."
+      type="password" 
+      name="userPassword" 
+      required  
+      pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}" 
+      [(ngModel)]="userPassword" 
+      #password="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="password.valid || password.untouched">
+      Пароль не заполнен или введен неправильно  
+  </div>
+
+  <button md-button
+    [disabled]="!accountForm.form.valid"
+    routerLink="/mainForm">
+      Войти
+  </button>
+</form>
