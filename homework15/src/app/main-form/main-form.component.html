@@ -1,19 +1,16 @@
-<form class="example-form" #payForm="ngForm">
+<form class="example-form" 
+  [formGroup]="userForm">
+
 <!--Номер телефона-->
   <md-input-container class="example-full-width">
       <input mdInput 
         placeholder="соответствует шаблону 380 '** *******'"
         type="text" 
         name="userPhoneNmb" 
-        required  
-        pattern="380([0-9]{9})"  
-        [(ngModel)]="userPhoneNmb" 
-        #phoneNmb="ngModel">
+        formControlName = "userPhoneNmb">
   </md-input-container>
-  <div 
-    class="error"
-    [hidden]="phoneNmb.valid || phoneNmb.untouched">
-      Введите корректный номер телефона  
+  <div *ngIf="formErrors.userPhoneNmb" class="error">
+    {{formErrors.userPhoneNmb}}
   </div>
 
 <!--Сумма-->
@@ -21,20 +18,11 @@
     <input mdInput 
       placeholder="Сумма пополнения: число от 5 до 5000, буквы запрещены"
       type="number" 
-      min="5"
-      max="5000"
-      value="1"
-      step="1"
-      pattern="[0-9]{1,4}"
-      name="userSum" 
-      required  
-      [(ngModel)]="userSum" 
-      #sum="ngModel">
+      formControlName = "userSum"
+      name="userSum">
   </md-input-container>
-  <div 
-    class="error"
-    [hidden]="sum.valid || sum.untouched">
-      Введите корректную сумму  
+  <div *ngIf="formErrors.userSum" class="error">
+    {{formErrors.userSum}}
   </div>
 
 <!--Email-->
@@ -43,15 +31,10 @@
         placeholder="Email должен содержать @ и точку."
         type="email" 
         name="userEmail" 
-        required  
-        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" 
-        [(ngModel)]="userEmail" 
-        #email="ngModel">
+        formControlName = "userEmail">
   </md-input-container>
-  <div 
-    class="error"
-    [hidden]="email.valid || email.untouched">
-      Email не заполнен или введен неправильно  
+  <div *ngIf="formErrors.userEmail" class="error">
+    {{formErrors.userEmail}}
   </div>
 
 <!--CardId-->
@@ -60,38 +43,39 @@
       placeholder="Номер карты: 16 цифр, буквы запрещены"
       type="text" 
       name="userCardId" 
-      required  
-      pattern="[0-9]{16}" 
-      [(ngModel)]="userCardId" 
-      #cardId="ngModel">
+      formControlName = "userCardId">
   </md-input-container>
-  <div 
-    class="error"
-    [hidden]="cardId.valid || cardId.untouched">
-      Номер карточки не заполнен или введен неправильно  
+  <div *ngIf="formErrors.userCardId" class="error">
+    {{formErrors.userCardId}}
   </div>
 
 <!--Срок действия-->
 	<md-select 
     placeholder="Select month" 
 		[(ngModel)]="selectedMonth" 
-    required
-		name="month">
-		<md-option *ngFor="let month of months" 
-			[value]="month.value">
-			{{ month.viewValue }}
-		</md-option>
-	</md-select>
+    name="userMonth"
+    formControlName = "userMonth">
+      <md-option *ngFor="let month of dateService.months" 
+        [value]="month.value">
+        {{ month.viewValue }}
+      </md-option>
+  </md-select>
+  <div *ngIf="formErrors.userMonth" class="error">
+    {{formErrors.userMonth}}
+  </div>
 
   <md-select placeholder="Select year" 
 		[(ngModel)]="selectedYear" 
-    required
-		name="year">
-		<md-option *ngFor="let year of years" 
-			[value]="year.value">
-			{{ year.viewValue }}
-		</md-option>
-	</md-select>
+    name="year"
+    formControlName = "userYear">
+      <md-option *ngFor="let year of dateService.years" 
+        [value]="year.value">
+        {{ year.viewValue }}
+      </md-option>
+  </md-select>
+  <div *ngIf="formErrors.userYear" class="error">
+    {{formErrors.userYear}}
+  </div>
 
 <!--CVV2-->
   <md-input-container class="example-full-width">
@@ -99,15 +83,11 @@
       placeholder="CVV2: 3 цифры, буквы запрещены"
       type="text" 
       name="userCVV2" 
-      required  
-      pattern="[0-9]{3}" 
-      [(ngModel)]="userCVV2" 
-      #cvv2="ngModel">
+      formControlName = "userCVV2"
+      pattern="[0-9]{3}">
   </md-input-container>
-  <div 
-    class="error"
-    [hidden]="cvv2.valid || cvv2.untouched">
-      CVV2 не заполнен или введен неправильно  
+  <div *ngIf="formErrors.userCVV2" class="error">
+    {{formErrors.userCVV2}}
   </div>
 
 <!--SuccessMsg-->
@@ -119,8 +99,9 @@
 
 <!--ReplenishBtn-->
   <button md-button
-    [disabled]="!payForm.form.valid"
+    [disabled]="isBtnDisabled()"
     (click)="replenishAccount()">
       Пополнить
   </button>
 </form>
+

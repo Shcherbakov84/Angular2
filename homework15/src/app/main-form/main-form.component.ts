@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReactiveFormsModule, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { DateService } from '.././shared/date.service';
 
 @Component({
   selector: 'app-main-form',
@@ -6,46 +8,112 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-form.component.css']
 })
 export class MainFormComponent implements OnInit {
-  userPhoneNmb: string;
-  userSum: string;
-  userEmail: string;
-  userCardId: string;
+  userForm: FormGroup;
   isAccountReplenished: boolean;
   selectedMonth;
   selectedYear;
 
-  months = [
-    {value: 'Dec', viewValue: 'December'},
-    {value: 'Jan', viewValue: 'January'},
-    {value: 'Feb', viewValue: 'February'},
-    {value: 'Mar', viewValue: 'March'},
-    {value: 'Apr', viewValue: 'April'},
-    {value: 'May', viewValue: 'May'},
-    {value: 'Jun', viewValue: 'June'},
-    {value: 'Jul', viewValue: 'July'},
-    {value: 'Aug', viewValue: 'August'},
-    {value: 'Sep', viewValue: 'September'},
-    {value: 'Oct', viewValue: 'October'},
-    {value: 'Nov', viewValue: 'November'},
-  ];
+  constructor( private fb: FormBuilder, private dateService: DateService ) { }
 
-  years = [
-    {value: 2017, viewValue: '2017'},
-    {value: 2018, viewValue: '2018'},
-    {value: 2019, viewValue: '2019'}
-  ];
-
-  constructor() { }
+  formErrors = {
+    "userPhoneNmb": "",
+    "userSum": "",
+    "userEmail": "",
+    "userCardId": "",
+    "userMonth": "",
+    "userYear": "",
+    "userCVV2": ""
+  }
+  validationMessages = {
+    "userPhoneNmb": {
+      "required": "Обязательное поле.",
+      "pattern": "Не правильный формат номера телефона."
+    },
+    "userSum": {
+      "required": "Обязательное поле.",
+      "min": "Сумма должна быть больше 5",
+      "max": "Сумма должна быть меньше 5000"
+    },
+    "userEmail": {
+      "required": "Обязательное поле.",
+      "pattern": "Не правильный формат email"
+    },
+    "userCardId": {
+      "required": "Обязательное поле.",
+      "pattern": "Не правильный формат кода карточки"
+    },
+    "userMonth": {
+      "required": "Обязательное поле."
+    },
+    "userYear": {
+      "required": "Обязательное поле."
+    },
+    "userCVV2": {
+      "required": "Обязательное поле.",
+      "pattern": "Не правильный формат CVV2"
+    }
+  }
 
   ngOnInit() {
+    this.buildForm();
+    this.dateService.months;
+    this.dateService.years;
+  }
+
+  isBtnDisabled() {
+    return (this.userForm.status == 'INVALID') ? true : false;   
   }
 
   replenishAccount() {
     this.isAccountReplenished = true;
   }
-}
 
-// 380967771177
-// petrpetrov@gmail.com
-// 1111111111111111
-//777
+  buildForm() {
+    this.userForm = this.fb.group ({
+      userPhoneNmb: ['', [
+        Validators.required,
+        Validators.pattern("380[0-9]{9}")
+      ]],
+      userSum: ['', [
+        Validators.required,
+        Validators.min(5),
+        Validators.max(5000)
+      ]],
+      userEmail: ['', [
+        Validators.required,
+        Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
+      ]],
+      userCardId: ['', [
+        Validators.required,
+        Validators.pattern("[0-9]{16}")
+      ]],
+      userMonth: ['', [
+        Validators.required
+      ]],
+      userYear: ['', [
+        Validators.required
+      ]],
+      userCVV2: ['', [
+        Validators.required,
+        Validators.pattern("[0-9]{3}")
+      ]]
+    });
+    this.userForm.valueChanges.subscribe(data => this.onValueChange());
+  }
+
+  onValueChange() {
+    if (!this.userForm) return;
+
+    for (let item in this.formErrors) {
+      this.formErrors[item] = "";
+      let control = this.userForm.get(item);
+
+      if (control && control.dirty && !control.valid) {
+          let message = this.validationMessages[item];
+          for (let key in control.errors) {
+              this.formErrors[item] += message[key] + " ";
+          }
+      }
+    }
+  }
+}

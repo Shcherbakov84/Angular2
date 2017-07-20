@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '@angular/material';
 
@@ -10,6 +10,7 @@ import { UsersAccountComponent } from './users-account/users-account.component';
 import { MainFormComponent } from './main-form/main-form.component';
 
 import { routes } from "./app.routes";
+import { DateService } from './shared/date.service';
 
 @NgModule({
   declarations: [
@@ -22,9 +23,10 @@ import { routes } from "./app.routes";
     MaterialModule,
     BrowserModule,  
     FormsModule,  
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [DateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

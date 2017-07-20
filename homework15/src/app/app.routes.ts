@@ -8,7 +8,7 @@ import { MainFormComponent } from "./main-form/main-form.component";
 
 export const routes: Routes = [
     { path: "", redirectTo: "usersAccount", pathMatch: "full" },
-    { path: "usersAccount",    component: UsersAccountComponent },  
+    { path: "usersAccount",    component: UsersAccountComponent },
     { path: "mainForm",   component: MainFormComponent }
 ];
 
