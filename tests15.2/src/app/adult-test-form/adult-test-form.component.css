@@ -1,0 +1,34 @@
+.example-form {
+  width: 500px;
+  margin: 30px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-half-width {
+  width: 250px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 80px;
+}
+
+.error {
+  margin-top: 10px;
+  color: red;
+}
+
+.success {
+  margin-top: 10px;
+  color: green;
+}
+
+.confirm-btn {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+}

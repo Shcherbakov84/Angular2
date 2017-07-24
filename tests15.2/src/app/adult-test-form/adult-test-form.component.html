@@ -1,0 +1,81 @@
+<form 
+  class="example-form" 
+  #ageForm="ngForm">
+    <div class="form-wrap"
+      [hidden]="!formVisibility">
+
+      <!-- Genre selectbox -->
+      <md-select 
+        placeholder="какой жанр фильма вы хотите посмотреть" 
+        [(ngModel)]="selectedGenre" 
+        required
+        name="genre">
+        <md-option *ngFor="let genre of genres" 
+          [value]="genre.value">
+          {{ genre.viewValue }}
+        </md-option>
+      </md-select>
+
+      <div *ngIf="isHorror()">
+
+        <!-- Age Input -->
+        <md-input-container class="example-full-width">
+          <input mdInput 
+            placeholder="Сколько тебе лет?"
+            type="text" 
+            name="userAge" 
+            required  
+            pattern="[0-9]{2,3}" 
+            [(ngModel)]="userAge" 
+            #age="ngModel">
+        </md-input-container>
+
+        <!-- Selectbox for additional question -->
+        <md-select
+          *ngIf="isAdult()" 
+          placeholder="Что такое VHS?" 
+          [(ngModel)]="selectedVhs" 
+          required
+          name="vhs"
+          #vhs="ngModel">
+            <md-option 
+              *ngFor="let vhs of vhses" 
+              [value]="vhs.value">
+              {{ vhs.viewValue }}
+            </md-option>
+        </md-select>
+
+        <!--ConfirmBtn-->
+        <button md-button
+          class="confirm-btn"
+          [disabled]="age.pristine"
+          (click)="confirm()">
+            Подтвердить
+        </button>
+      </div>
+    </div>
+
+    <!--AgeIsNotEnoughMsg-->
+    <div 
+      class="error"
+      *ngIf="isBtnClicked && userAge && !isAdult() ">
+        Вы не можете просматривать этот контент  
+    </div>
+
+    <!--SuccessMsg-->
+    <div 
+      class="success"
+      *ngIf="isBtnClicked && ageForm.form.valid && isVideocasette()">
+        Вы прошли проверку  
+    </div> 
+
+    <!--AgeIsNotConfirmedMsg-->
+    <div 
+      class="error"
+      *ngIf="isBtnClicked && ageForm.form.valid && isAdult() && !isVideocasette()">
+        Ваш возраст не подтвержден
+    </div> 
+</form>
+
+
+  
