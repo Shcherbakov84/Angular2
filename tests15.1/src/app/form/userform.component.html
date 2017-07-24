@@ -1,0 +1,76 @@
+<form class="example-form" 
+  [formGroup]="userForm">
+
+<!--Имя-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="буквы и числа, длина от 2 до 25 "
+        type="text" 
+        name="userName" 
+        formControlName = "userName">
+  </md-input-container>
+  <div *ngIf="formErrors.userName" class="error">
+    {{formErrors.userName}}
+  </div>
+
+<!--Фамилия-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="буквы и числа, длина от 2 до 25 "
+        type="text" 
+        name="userSurname" 
+        formControlName = "userSurname">
+  </md-input-container>
+  <div *ngIf="formErrors.userSurname" class="error">
+    {{formErrors.userSurname}}
+  </div>
+
+<!--Номер телефона-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="соответствует шаблону 38 *** *** ** **"
+        type="text" 
+        name="userPhoneNmb" 
+        formControlName = "userPhoneNmb">
+  </md-input-container>
+  <div *ngIf="formErrors.userPhoneNmb" class="error">
+    {{formErrors.userPhoneNmb}}
+  </div>
+
+<!-- Адресс -->
+  <textarea rows="12" 
+    cols="60"
+    name="userAdress"
+    formControlName = "userAdress">
+  </textarea>
+  <div *ngIf="formErrors.userAdress" class="error">
+    {{formErrors.userAdress}}
+  </div>
+
+<!--Email-->
+  <md-input-container class="example-full-width">
+      <input mdInput 
+        placeholder="Email должен содержать @ и точку."
+        type="email" 
+        name="userEmail" 
+        formControlName = "userEmail">
+  </md-input-container>
+  <div *ngIf="formErrors.userEmail" class="error">
+    {{formErrors.userEmail}}
+  </div>
+
+<!--SuccessMsg-->
+  <div 
+    class="success"
+    [hidden]="!isDataSent">
+      Ваш успешно отправили данные  
+  </div>
+
+<!--SendBtn-->
+  <button md-button
+    [disabled]="isBtnDisabled()"
+    (click)="send()">
+      Отправить
+  </button>
+</form>
+
