@@ -1,0 +1,117 @@
+<form class="example-form" 
+  #roomForm="ngForm">
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Укажите высоту комнаты в метрах. Цифра от 1 до 5."
+      type="text" 
+      name="roomHeight" 
+      required  
+      pattern="[1-5]{1}" 
+      [(ngModel)]="roomHeight" 
+      #height="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="height.valid || height.pristine">
+      Поле высоты не заполнено или заполнено неправильно. 
+  </div>
+
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Укажите ширину комнаты в метрах. До 2-х символов"
+      type="text" 
+      name="roomWidth" 
+      required  
+      pattern="[0-9]{1,2}" 
+      [(ngModel)]="roomWidth" 
+      #width="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="width.valid || width.pristine">
+      Поле ширины не заполнено или заполнено неправильно. 
+  </div>
+
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Укажите длину комнаты в метрах. До 2-х символов"
+      type="text" 
+      name="roomLength" 
+      required  
+      pattern="[0-9]{1,2}" 
+      [(ngModel)]="roomLength" 
+      #length="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="length.valid || length.pristine">
+      Поле длины не заполнено или заполнено неправильно. 
+  </div>
+
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Укажите расход краски в литрах на один квадратный метр в диапазоне 0,1-0,5 литра за квадратный метр"
+      type="text" 
+      name="userConsumption" 
+      required  
+      [(ngModel)]="userConsumption" 
+      #consumption="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="consumption.valid && isConsumptionValueCorrect() || consumption.pristine">
+      Поле не заполнено или заполнено неправильно. 
+  </div>
+
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Укажите цену банки 5л в грн. От 3 до 4-х символов"
+      type="text" 
+      name="priceForOne" 
+      required  
+      pattern="[0-9]{3,4}" 
+      [(ngModel)]="priceForOne" 
+      #price="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="price.valid || price.pristine">
+      Поле не заполнено или заполнено неправильно. 
+  </div>
+
+  <md-select 
+    placeholder="Количество слоев"
+    name="layer"
+    [(ngModel)]="quantityOfLayers"
+    required>
+    <md-option *ngFor="let layer of layers" [value]="layer.value">
+      {{ layer.value }}
+    </md-option>
+  </md-select>
+
+  <button class="calc-btn"
+    md-button
+    [disabled]="!isConsumptionValueCorrect() || !roomForm.form.valid"
+    (click)="calculate()">
+      Посчитать
+  </button>
+
+  <button class="reset-btn"
+    md-button
+    (click)="roomForm.reset()">
+      Сбросить
+  </button>
+
+  <div class="resultMsg"
+    *ngIf="roomForm.form.valid && isCalcBtnClicked">
+      <p>
+        Площадь ваших стен составляет <span>{{ area }}</span> м. кв.
+      </p>
+      <p>
+        Для покраски вам необходимо <span>{{ quantityOfTins }}</span> банок краски.
+      </p>
+      <p>
+        Общая стоимость <span>{{ totalPrice }}</span> грн.
+      </p>
+  </div>
+</form>

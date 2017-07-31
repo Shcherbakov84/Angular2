@@ -1,0 +1,38 @@
+.example-form {
+  width: 500px;
+  margin: 30px auto;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-half-width {
+  width: 250px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 80px;
+}
+
+.error {
+  color: red;
+}
+
+.resultMsg {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.calc-btn, .reset-btn {
+    border: 1px solid #ccc;
+}
+
+.resultMsg span {
+  color: green;
+}
