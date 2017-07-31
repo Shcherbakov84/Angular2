@@ -1,0 +1,60 @@
+ <form class="example-form" 
+  #converterForm="ngForm">
+  <md-input-container class="example-full-width">
+    <input mdInput 
+      placeholder="Укажите число. До 10-ти символов"
+      type="text" 
+      name="inputUserValue" 
+      required  
+      pattern="[0-9]{0,10}" 
+      [(ngModel)]="inputUserValue" 
+      #inputValue="ngModel">
+  </md-input-container>
+  <div 
+    class="error"
+    [hidden]="inputValue.valid || inputValue.pristine">
+      Поле не заполнено или заполнено неправильно. 
+  </div>
+
+   <md-select 
+    placeholder="Из какой валюты конвертировать?"
+    name="moneyType"
+    [(ngModel)]="inputMoneyType"
+    required>
+    <md-option *ngFor="let inputMoneyType of moneyTypes" [value]="inputMoneyType.value">
+      {{ inputMoneyType.value }}
+    </md-option>
+  </md-select> 
+
+  <md-select 
+    placeholder="В какую валюту конвертировать?"
+    name="outputMoneyType"
+    [(ngModel)]="outputMoneyType"
+    required>
+    <md-option *ngFor="let outputMoneyType of moneyTypes" [value]="outputMoneyType.value">
+      {{ outputMoneyType.value }}
+    </md-option>
+  </md-select> 
+
+  <div class="btns">
+    <button class="convert-btn"
+      md-button
+      [disabled]="!converterForm.form.valid"
+      (click)="convert()">
+        Конвертировать
+    </button>
+
+    <button class="reset-btn"
+      md-button
+      [disabled]="!inputValue.valid"
+      (click)="converterForm.reset()">
+        Сбросить
+    </button>
+  </div>
+
+  <div class="resultMsg"
+    *ngIf="converterForm.form.valid && isConvertBtnClicked">
+        Конвертированное число: <span>{{ convertredValue }}</span>
+  </div> 
+</form> 
+
